@@ -1,0 +1,3 @@
+- review wszystkich plików python z folderu ```ocr/``` - zrozum, o co w nich chodzi
+- dodać metadane - plik ```lessons_manifest.py```
+- opisanie kroków projektu - co jest zrobione i co jest do zrobienia
