@@ -40,6 +40,18 @@
     "czujnik obecności na podczerwień",
     "soczewka Fresnela"
   ]
+  },
+  {
+  "question_id": "5",
+  "question": "Wymień wszystkie zadania, które pojawiają się na lekcji",
+  "lesson_title": "Pilot zdalnego sterowania",
+  "relevant_slides": ["11-12.4","11-12.8", "11-12.9", "3.8"],
+  "expected_answer_points": [
+    "Podłączenie głośnika i potencjometru",
+    "zmiana częstotliwości dźwięku za pomocą potencjometru",
+    "podłączenie czujnika IR (podczerwieni) i diody RGB",
+    "stworzenie alarmu z czujnikiem przeszkód, głośnikiem i diodą LED"
+  ]
   }
 ]
 

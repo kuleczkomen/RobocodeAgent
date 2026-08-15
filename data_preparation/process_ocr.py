@@ -15,9 +15,7 @@ def read_dotenv() -> tuple[str, str]:
         raise ValueError("Environment variables are missing in .env file.")
     return ENDPOINT, KEY
 
-def main() -> None:
-    ENDPOINT, KEY = read_dotenv()
-
+def main(ENDPOINT: str, KEY: str) -> None:
     # initialise SDK Azure client
     client = DocumentIntelligenceClient(
         endpoint=ENDPOINT,
@@ -56,3 +54,7 @@ def main() -> None:
             json.dump(result_dict, f, ensure_ascii=False, indent=2)
 
         print(f"[SUKCES] Zapisano wynik: {output_json_path}")
+
+if __name__ == "__main__":
+    ENDPOINT, KEY = read_dotenv()
+    main(ENDPOINT, KEY)
