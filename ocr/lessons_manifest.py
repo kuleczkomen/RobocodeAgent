@@ -16,11 +16,58 @@ LESSONS = {
         "subject": "Arduino Junior",
         "lesson_title": "Wprowadzenie do robotyki",
     },
-    # dodaj tu kolejne 14 lekcji, ten sam wzorzec, np.:
-    # "Arduino_Junior_Lesson_2_PL": {
-    #     "subject": "Arduino Junior",
-    #     "lesson_title": "...",
-    # },
+    "Arduino Junior Lesson 2 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Inteligentna bramka obrotowa",
+    },
+    "Arduino Junior Lesson 3 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "System bezpieczeństwa",
+    },
+    "Arduino Junior Lesson 4 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Inteligentna lampa",
+    },
+    "Arduino Junior Lesson 5 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Joystick",
+    },
+    "Arduino Junior Lesson 6 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Wskaźnik siedmiosegmentowy",
+    },
+    "Arduino Junior Lesson 7 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Wyświetlacz i czujnik temperatury",
+    },
+    "Arduino Junior Lesson 8 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Sterownik silnika i platforma LEO",
+    },
+"Arduino Junior Lesson 9 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Сzujnik parkowania. Sonar",
+    },
+"Arduino Junior Lesson 10 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Pasywny głośnik piezo. Pianino",
+    },
+"Arduino Junior Lesson 11-12 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Pilot zdalnego sterowania",
+    },
+"Arduino Junior Lesson 13 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Praca z liczbami losowymi",
+    },
+"Arduino Junior Lesson 14 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Czujnik gazu i przekaźnik",
+    },
+"Arduino Junior Lesson 16 PL": {
+        "subject": "Arduino Junior",
+        "lesson_title": "Czujnik gazu i przekaźnik",
+    },
 }
 
 

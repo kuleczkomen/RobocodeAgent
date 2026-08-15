@@ -30,7 +30,6 @@ pdf_files = list(input_dir.glob("*.pdf"))
 print(f"Znaleziono {len(pdf_files)} plików PDF.")
 
 for pdf_path in pdf_files:
-
     output_json_path = output_dir / f"{pdf_path.stem}.json"
 
     # cache
