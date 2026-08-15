@@ -13,14 +13,15 @@ import json
 from pathlib import Path
 
 from text_cleaning import extract_clean_pages, load_ocr_result
-from chunking import build_chunks
+from chunking import build_chunks, MIN_WORDS_PER_CHUNK
 from lessons_manifest import get_lesson_meta
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
+SUBJECT_NAME = "arduino_junior"
 
-OCR_OUTPUT_DIR = BASE_DIR / "output" / "arduino_junior"
-CHUNKS_OUTPUT_PATH = BASE_DIR / "output" / "chunks.jsonl"
+OCR_OUTPUT_DIR = BASE_DIR / "output" / SUBJECT_NAME
+CHUNKS_OUTPUT_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}_chunks(1).jsonl"
 
 
 def main() -> None:
@@ -51,11 +52,10 @@ def main() -> None:
             f.write(json.dumps(chunk, ensure_ascii=False) + "\n")
 
     print(f"\nZapisano {len(all_chunks)} chunków do {CHUNKS_OUTPUT_PATH}")
-    print_length_distribution(all_chunks)
+    chunk_sanity_check(all_chunks)
 
 
-def print_length_distribution(chunks: list[dict]) -> None:
-    """Szybki sanity check przed przejściem do Fazy 3."""
+def chunk_sanity_check(chunks: list[dict]) -> None:
     word_counts = sorted(len(c["content"].split()) for c in chunks)
     n = len(word_counts)
     if n == 0:
@@ -64,9 +64,9 @@ def print_length_distribution(chunks: list[dict]) -> None:
     print("\n--- Rozkład długości chunków (liczba słów) ---")
     print(f"min: {word_counts[0]}, mediana: {word_counts[n // 2]}, max: {word_counts[-1]}")
 
-    short = [c for c in chunks if len(c["content"].split()) < 15]
+    short = [c for c in chunks if len(c["content"].split()) < MIN_WORDS_PER_CHUNK]
     if short:
-        print(f"UWAGA: {len(short)} chunków wciąż ma <15 słów mimo mergowania — sprawdź ręcznie:")
+        print(f"UWAGA: {len(short)} chunków wciąż ma < {MIN_WORDS_PER_CHUNK} słów mimo mergowania — sprawdź ręcznie:")
         for c in short[:5]:
             preview = c["content"][:60].replace("\n", " ")
             print(f"  - {c['chunk_id']}: \"{preview}...\"")

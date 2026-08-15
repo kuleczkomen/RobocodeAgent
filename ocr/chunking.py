@@ -6,8 +6,7 @@ tekstu przygotowanego przez text_cleaning.py. Bardzo krótkie slajdy są
 doklejane do sąsiedniego, żeby nie mieć pustych/bezwartościowych embeddingów.
 """
 
-MIN_WORDS_PER_CHUNK = 15
-
+MIN_WORDS_PER_CHUNK = 20
 
 def _word_count(text: str) -> int:
     return len(text.split())

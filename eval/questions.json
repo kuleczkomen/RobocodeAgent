@@ -1,0 +1,46 @@
+[
+  {
+  "question_id": "1",
+  "question": "Czym jest prąd elektryczny",
+  "lesson_title": "Wprowadzenie do robotyki",
+  "relevant_slides": ["1.2"],
+  "expected_answer_points": [
+    "przepływ elektronów",
+    "bardzo małe, niewidoczne cząsteczki"
+    ]
+  },
+  {
+  "question_id": "2",
+  "question": "Jakie sygnały może podawać pin cyfrowy?",
+  "lesson_title": "Wprowadzenie do robotyki",
+  "relevant_slides": ["1.6"],
+  "expected_answer_points": [
+    "wysoki", "niski"
+  ]
+  },
+  {
+  "question_id": "3",
+  "question": "Jak podłączyć serowmechanizm do arudino?",
+  "lesson_title": "Inteligentna bramka obrotowa",
+  "relevant_slides": ["2.9"],
+  "expected_answer_points": [
+    "Brązowy przewód do GND",
+    "Czerwony przewód do 5V",
+    "Żółty przewód do pinu cyfrowego"
+  ]
+  },
+  {
+  "question_id": "4",
+  "question": "Z jakich czujników korzystamy na lekcji 3?",
+  "lesson_title": "System bezpieczeństwa",
+  "relevant_slides": ["3.4", "3.5", "3.8", "3.9", "3.12", "3.13"],
+  "expected_answer_points": [
+    "Serwo (serwomechanizm)",
+    "piezo (brzęczyk)",
+    "czujnik obecności na podczerwień",
+    "soczewka Fresnela"
+  ]
+  }
+]
+
+
