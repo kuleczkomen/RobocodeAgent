@@ -9,9 +9,8 @@ Uruchomienie:
     python create_index.py
 """
 
-import os
 
-from dotenv import load_dotenv
+from utils import config
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents.indexes import SearchIndexClient
 from azure.search.documents.indexes.models import (
@@ -25,17 +24,12 @@ from azure.search.documents.indexes.models import (
     VectorSearchProfile,
 )
 
-def read_dotenv() -> tuple[str, str, str]:
-    load_dotenv()
 
-    ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
-    KEY = os.getenv("AZURE_SEARCH_KEY")
-    INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME", "lekcje-arduino")
+ENDPOINT = config.SEARCH_ENDPOINT
+KEY = config.SEARCH_KEY
+INDEX_NAME = config.SEARCH_INDEX_NAME
 
-    if not ENDPOINT or not KEY:
-        raise ValueError("Brak AZURE_SEARCH_ENDPOINT / AZURE_SEARCH_KEY w .env.")
-
-    return ENDPOINT, KEY, INDEX_NAME
+config.validate_config()
 
 # text-embedding-3-small zwraca wektory o 1536 wymiarach. Jeśli zmienisz
 # model embeddingowy na inny (np. -large), zaktualizuj to i przebuduj
@@ -44,7 +38,6 @@ EMBEDDING_DIMENSIONS = 1536
 
 
 def main() -> None:
-    ENDPOINT, KEY, INDEX_NAME = read_dotenv()
     client = SearchIndexClient(endpoint=ENDPOINT, credential=AzureKeyCredential(KEY))
 
     index = SearchIndex(

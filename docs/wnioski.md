@@ -1,0 +1,1 @@
+- ```AZURE_OPENAI_EMBEDDING_NAME``` to dokładna nazwa deploymentu, nie modelu

@@ -4,18 +4,12 @@ from pathlib import Path
 from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.documentintelligence import DocumentIntelligenceClient
+from utils import config
 
-def read_dotenv() -> tuple[str, str]:
-    load_dotenv()
+ENDPOINT = config.AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT
+KEY = config.AZURE_DOCUMENT_INTELLIGENCE_KEY
 
-    ENDPOINT = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT")
-    KEY = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_KEY")
-
-    if not ENDPOINT or not KEY:
-        raise ValueError("Environment variables are missing in .env file.")
-    return ENDPOINT, KEY
-
-def main(ENDPOINT: str, KEY: str) -> None:
+def main() -> None:
     # initialise SDK Azure client
     client = DocumentIntelligenceClient(
         endpoint=ENDPOINT,
@@ -56,5 +50,4 @@ def main(ENDPOINT: str, KEY: str) -> None:
         print(f"[SUKCES] Zapisano wynik: {output_json_path}")
 
 if __name__ == "__main__":
-    ENDPOINT, KEY = read_dotenv()
-    main(ENDPOINT, KEY)
+    main()

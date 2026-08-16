@@ -14,11 +14,10 @@ Uruchomienie:
 """
 
 import json
-import os
 import re
+from utils import config as conf
 from pathlib import Path
 
-from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from openai import AzureOpenAI
@@ -29,13 +28,15 @@ BASE_DIR = SCRIPT_DIR.parent
 SUBJECT_NAME = "arduino_junior"
 CHUNKS_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}.jsonl"
 
-SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
-SEARCH_KEY = os.getenv("AZURE_SEARCH_KEY")
-INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME")
+SEARCH_ENDPOINT = conf.SEARCH_ENDPOINT
+SEARCH_KEY = conf.SEARCH_KEY
+SEARCH_INDEX_NAME = conf.SEARCH_INDEX_NAME
 
-OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
-OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY")
-EMBEDDING_DEPLOYMENT = os.getenv("AZURE_OPENAI_EMBEDDING_NAME")
+OPENAI_ENDPOINT = conf.OPENAI_ENDPOINT
+OPENAI_KEY = conf.OPENAI_KEY
+EMBEDDING_NAME = conf.EMBEDDING_NAME
+
+conf.validate_config()
 
 BATCH_SIZE = 16  # ile chunków na jedno wywołanie API embeddingów / upload do indeksu
 
@@ -83,7 +84,7 @@ def main() -> None:
     )
     search_client = SearchClient(
         endpoint=SEARCH_ENDPOINT,
-        index_name=INDEX_NAME,
+        index_name=SEARCH_INDEX_NAME,
         credential=AzureKeyCredential(SEARCH_KEY),
     )
 
@@ -94,7 +95,7 @@ def main() -> None:
         # jeden request embeddingowy na całą paczkę, nie per chunk —
         # dużo szybciej i taniej niż wywołanie API dla każdego chunku osobno
         response = openai_client.embeddings.create(
-            model=EMBEDDING_DEPLOYMENT,
+            model=EMBEDDING_NAME,
             input=texts,
         )
         embeddings = [item.embedding for item in response.data]
@@ -121,7 +122,7 @@ def main() -> None:
         uploaded += len(documents) - len(failed)
         print(f"[OK] Zaindeksowano {uploaded}/{len(chunks)} chunków...")
 
-    print(f"\nGotowe. Zaindeksowano {uploaded}/{len(chunks)} chunków w '{INDEX_NAME}'.")
+    print(f"\nGotowe. Zaindeksowano {uploaded}/{len(chunks)} chunków w '{SEARCH_INDEX_NAME}'.")
 
 
 if __name__ == "__main__":
