@@ -5,7 +5,7 @@ Faza 3, krok 1: generuje embeddingi dla chunks.jsonl (Azure OpenAI) i
 wgrywa je razem z tekstem + metadanymi do indeksu Azure AI Search
 utworzonego przez create_index.py.
 
-Uruchom create_index.py raz wcześniej. Ten skrypt można uruchamiać
+Uruchom create_index.py wcześniej. Ten skrypt można uruchamiać
 wielokrotnie — upload_documents nadpisuje dokumenty o tym samym "id",
 więc ponowne uruchomienie po zmianach w chunks.jsonl jest bezpieczne.
 
@@ -23,20 +23,19 @@ from azure.core.credentials import AzureKeyCredential
 from azure.search.documents import SearchClient
 from openai import AzureOpenAI
 
-load_dotenv()
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 SUBJECT_NAME = "arduino_junior"
-CHUNKS_PATH = BASE_DIR / "output" / f"{SUBJECT_NAME}_chunks.jsonl"
+CHUNKS_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}.jsonl"
 
 SEARCH_ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
 SEARCH_KEY = os.getenv("AZURE_SEARCH_KEY")
-INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME", "lekcje-arduino")
+INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME")
 
 OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY")
-EMBEDDING_DEPLOYMENT = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "text-embedding-3-small")
+EMBEDDING_DEPLOYMENT = os.getenv("AZURE_OPENAI_EMBEDDING_NAME")
 
 BATCH_SIZE = 16  # ile chunków na jedno wywołanie API embeddingów / upload do indeksu
 

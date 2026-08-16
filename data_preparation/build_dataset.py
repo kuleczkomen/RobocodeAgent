@@ -21,7 +21,7 @@ BASE_DIR = SCRIPT_DIR.parent
 SUBJECT_NAME = "arduino_junior"
 
 OCR_OUTPUT_DIR = BASE_DIR / "output" / SUBJECT_NAME
-CHUNKS_OUTPUT_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}_chunks(1).jsonl"
+CHUNKS_OUTPUT_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}(2).jsonl"
 
 
 def main() -> None:

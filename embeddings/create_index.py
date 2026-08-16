@@ -3,7 +3,7 @@ create_index.py
 
 Jednorazowy setup: tworzy (lub nadpisuje schemat) indeksu wektorowego
 w Azure AI Search pod chunki lekcji. Uruchom raz przed pierwszym
-index_chunks.py — i ponownie tylko jeśli zmieniasz schemat pól.
+index_chunks.py — a ponownie tylko jeśli zmieniasz schemat pól.
 
 Uruchomienie:
     python create_index.py
@@ -25,14 +25,17 @@ from azure.search.documents.indexes.models import (
     VectorSearchProfile,
 )
 
-load_dotenv()
+def read_dotenv() -> tuple[str, str, str]:
+    load_dotenv()
 
-ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
-KEY = os.getenv("AZURE_SEARCH_KEY")
-INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME", "lekcje-arduino")
+    ENDPOINT = os.getenv("AZURE_SEARCH_ENDPOINT")
+    KEY = os.getenv("AZURE_SEARCH_KEY")
+    INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME", "lekcje-arduino")
 
-if not ENDPOINT or not KEY:
-    raise ValueError("Brak AZURE_SEARCH_ENDPOINT / AZURE_SEARCH_KEY w .env.")
+    if not ENDPOINT or not KEY:
+        raise ValueError("Brak AZURE_SEARCH_ENDPOINT / AZURE_SEARCH_KEY w .env.")
+
+    return ENDPOINT, KEY, INDEX_NAME
 
 # text-embedding-3-small zwraca wektory o 1536 wymiarach. Jeśli zmienisz
 # model embeddingowy na inny (np. -large), zaktualizuj to i przebuduj
@@ -41,6 +44,7 @@ EMBEDDING_DIMENSIONS = 1536
 
 
 def main() -> None:
+    ENDPOINT, KEY, INDEX_NAME = read_dotenv()
     client = SearchIndexClient(endpoint=ENDPOINT, credential=AzureKeyCredential(KEY))
 
     index = SearchIndex(
@@ -58,8 +62,7 @@ def main() -> None:
                 vector_search_dimensions=EMBEDDING_DIMENSIONS,
                 vector_search_profile_name="default-profile",
             ),
-            # metadane — filterable/facetable, żeby dało się np. zawęzić
-            # wyszukiwanie do jednej lekcji
+            # metadane — filterable/facetable, żeby dało się np. zawęzić wyszukiwanie do jednej lekcji
             SimpleField(name="subject", type=SearchFieldDataType.String, filterable=True, facetable=True),
             SimpleField(name="lesson_title", type=SearchFieldDataType.String, filterable=True, facetable=True),
             SimpleField(
