@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 ENV_PATH = BASE_DIR / ".env"
 
+API_VERSION = "2024-10-21"
+
 load_dotenv(dotenv_path=ENV_PATH, override=True)
 
 DOCUMENT_INTELLIGENCE_ENDPOINT = os.getenv("AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT")
@@ -17,6 +19,10 @@ SEARCH_INDEX_NAME = os.getenv("AZURE_SEARCH_INDEX_NAME")
 OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY")
 EMBEDDING_NAME = os.getenv("AZURE_OPENAI_EMBEDDING_NAME")
+
+AI_CHAT_NAME = os.getenv("AZURE_OPENAI_CHAT_NAME")
+AI_CHAT_ENDPOINT = os.getenv("AZURE_OPENAI_CHAT_ENDPOINT")
+AI_CHAT_KEY = os.getenv("AZURE_OPENAI_CHAT_KEY")
 
 def validate_config() -> None:
     """Opcjonalna walidacja – rzuca błąd, jeśli brakuje którejkolwiek zmiennej."""
