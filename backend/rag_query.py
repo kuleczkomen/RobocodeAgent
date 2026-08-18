@@ -8,16 +8,21 @@ Zaprojektowany jako moduł (nie skrypt jednorazowy), żeby:
 """
 
 from utils import config
-from openai import AzureOpenAI
+from openai import OpenAI, AzureOpenAI
 from azure.core.credentials import AzureKeyCredential
 from backend.chat_prompt import get_system_prompt
 from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizedQuery
 
-openai_client = AzureOpenAI(
+embedding_client = AzureOpenAI(
     azure_endpoint=config.OPENAI_ENDPOINT,
     api_key=config.OPENAI_KEY,
-    api_version=config.API_VERSION
+    api_version=config.AZURE_API_VERSION
+)
+
+chat_client = OpenAI(
+    api_key=config.AI_CHAT_KEY,
+    base_url=f"{config.AI_CHAT_ENDPOINT}/openai/v1/"
 )
 
 search_client = SearchClient(
@@ -30,8 +35,16 @@ EMBEDDING_DEPLOYMENT = config.EMBEDDING_NAME
 CHAT_DEPLOYMENT = config.AI_CHAT_NAME
 SYSTEM_PROMPT = get_system_prompt()
 
+def embed_query_test(text: str) -> list[float]:
+    print("Calling embeddings...")
+    response = embedding_client.embeddings.create(
+        model=EMBEDDING_DEPLOYMENT,
+        input=text
+    )
+    return response.data[0].embedding
+
 def embed_query(text: str) -> list[float]:
-    response = openai_client.embeddings.create(model=EMBEDDING_DEPLOYMENT, input=text)
+    response = embedding_client.embeddings.create(model=EMBEDDING_DEPLOYMENT, input=text)
     return response.data[0].embedding
 
 
@@ -75,17 +88,25 @@ def ask(question: str, top_k: int = 5, subject_filter: str | None = None) -> dic
         {"role": "user", "content": f"Kontekst:\n{context}\n\nPytanie nauczyciela: {question}"},
     ]
 
-    response = openai_client.chat.completions.create(
-        model=CHAT_DEPLOYMENT,
-        messages=messages,
-        temperature=0.2,
+    response = chat_client.responses.create(
+        extra_body={
+            "agent_reference": {
+                "name": "robo-gpt",
+                "type": "agent_reference",
+            }
+        },
+        input=f"Kontekst:\n{context}\n\nPytanie nauczyciela: {question}",
     )
 
     return {
         "question": question,
-        "answer": response.choices[0].message.content,
+        "answer": response.output_text,
         "retrieved_chunks": [
-            {"id": c["id"], "lesson_title": c["lesson_title"], "slide_numbers": c["slide_numbers"]}
+            {
+                "id": c["id"],
+                "lesson_title": c["lesson_title"],
+                "slide_numbers": c["slide_numbers"],
+            }
             for c in chunks
         ],
     }

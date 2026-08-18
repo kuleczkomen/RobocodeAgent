@@ -9,9 +9,15 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from rag_query import ask
+from utils import config
 
 LOG_FILE = Path("logs/queries.jsonl")
 LOG_FILE.parent.mkdir(exist_ok=True)
+
+def test() -> None:
+    print("EMBEDDING ENDPOINT:", config.OPENAI_ENDPOINT)
+    print("CHAT ENDPOINT:", config.AI_CHAT_ENDPOINT)
+    print("API VERSION:", config.AZURE_API_VERSION)
 
 
 def log_interaction(result: dict) -> None:
@@ -21,6 +27,7 @@ def log_interaction(result: dict) -> None:
 
 
 if __name__ == "__main__":
+    test()
     print("Zadaj pytanie testowe (Ctrl+C aby wyjść)\n")
     while True:
         try:
