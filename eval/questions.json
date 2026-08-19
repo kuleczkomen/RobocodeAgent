@@ -1,8 +1,6 @@
 [
   {
-  "question_id": "1",
   "question": "Czym jest prąd elektryczny",
-  "lesson_title": "Wprowadzenie do robotyki",
   "relevant_slides": ["1.2"],
   "expected_answer_points": [
     "przepływ elektronów",
@@ -10,18 +8,14 @@
     ]
   },
   {
-  "question_id": "2",
   "question": "Jakie sygnały może podawać pin cyfrowy?",
-  "lesson_title": "Wprowadzenie do robotyki",
   "relevant_slides": ["1.6"],
   "expected_answer_points": [
     "wysoki", "niski"
   ]
   },
   {
-  "question_id": "3",
   "question": "Jak podłączyć serowmechanizm do arudino?",
-  "lesson_title": "Inteligentna bramka obrotowa",
   "relevant_slides": ["2.9"],
   "expected_answer_points": [
     "Brązowy przewód do GND",
@@ -30,9 +24,7 @@
   ]
   },
   {
-  "question_id": "4",
   "question": "Z jakich czujników korzystamy na lekcji 3?",
-  "lesson_title": "System bezpieczeństwa",
   "relevant_slides": ["3.4", "3.5", "3.8", "3.9", "3.12", "3.13"],
   "expected_answer_points": [
     "Serwo (serwomechanizm)",
@@ -42,9 +34,7 @@
   ]
   },
   {
-  "question_id": "5",
   "question": "Wymień wszystkie zadania, które pojawiają się na lekcji",
-  "lesson_title": "Pilot zdalnego sterowania",
   "relevant_slides": ["11-12.4","11-12.8", "11-12.9", "3.8"],
   "expected_answer_points": [
     "Podłączenie głośnika i potencjometru",

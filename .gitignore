@@ -5,3 +5,4 @@ dataset/
 .env
 output/
 __pycache__
+docs/
