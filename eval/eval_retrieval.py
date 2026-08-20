@@ -27,9 +27,6 @@ def load_eval_set(path: str) -> list[dict]:
 
 def _parse_relevant_slide(slide_str: str) -> tuple[str, int]:
     """'1.2' -> ('1', 2); '11-12.4' -> ('11-12', 4).
-
-    Rozdzielamy po PIERWSZEJ kropce, żeby source_file z myślnikiem
-    (scalone lekcje, np. '11-12') nie rozjechał parsowania.
     """
     source_file, slide_num = slide_str.split(".", 1)
     return source_file, int(slide_num)
@@ -40,11 +37,6 @@ import re
 
 def _normalize_source_file(source_file: str) -> str:
     """Ujednolica source_file do formatu używanego w relevant_slides ('1', '2', '11-12').
-
-    Realny source_file w indeksie to pełna nazwa pliku, np.
-    'Arduino Junior Lesson 1 PL' albo 'Arduino Junior Lesson 11-12 PL'.
-    Wyciągamy numer (lub zakres, np. '11-12') po słowie 'Lesson'.
-
     Jeśli konwencja nazewnictwa się zmieni, dostosuj wzorzec `_LESSON_RE`.
     """
     match = _LESSON_RE.search(source_file)

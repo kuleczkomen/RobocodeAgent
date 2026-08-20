@@ -34,8 +34,8 @@
   ]
   },
   {
-  "question": "Wymień wszystkie zadania, które pojawiają się na lekcji",
-  "relevant_slides": ["11-12.4","11-12.8", "11-12.9", "3.8"],
+  "question": "Wymień wszystkie zadania, które pojawiają się na lekcji 11-12 Pilot zdalnego sterowania.",
+  "relevant_slides": ["11-12.4","11-12.8", "11-12.9"],
   "expected_answer_points": [
     "Podłączenie głośnika i potencjometru",
     "zmiana częstotliwości dźwięku za pomocą potencjometru",
