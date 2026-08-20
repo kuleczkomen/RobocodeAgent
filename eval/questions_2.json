@@ -1,0 +1,569 @@
+[
+  {
+    "question": "Czym jest prąd elektryczny?",
+    "relevant_slides": ["1.2"],
+    "expected_answer_points": [
+      "przepływ elektronów",
+      "bardzo małe, niewidoczne cząsteczki"
+    ]
+  },
+  {
+    "question": "Jakie sygnały może podawać pin cyfrowy?",
+    "relevant_slides": ["1.6"],
+    "expected_answer_points": [
+      "sygnał wysoki",
+      "sygnał niski"
+    ]
+  },
+  {
+    "question": "Do czego służy komenda delay w Ardublock?",
+    "relevant_slides": ["1.11"],
+    "expected_answer_points": [
+      "tworzenie przerw czasowych",
+      "milisekundy i mikrosekundy jako jednostki"
+    ]
+  },
+  {
+    "question": "Jak podłączyć przycisk do Arduino?",
+    "relevant_slides": ["1.21"],
+    "expected_answer_points": [
+      "GND do GND",
+      "VCC do 5V",
+      "OUT do pinu cyfrowego"
+    ]
+  },
+  {
+    "question": "Jak rozpoznać anodę i katodę zwykłej diody LED?",
+    "relevant_slides": ["1.16"],
+    "expected_answer_points": [
+      "dłuższa nóżka to anoda (plus)",
+      "krótsza nóżka to katoda (minus)"
+    ]
+  },
+  {
+    "question": "Jaki jest maksymalny kąt obrotu serwomechanizmu na lekcji L2?",
+    "relevant_slides": ["2.7", "2.8"],
+    "expected_answer_points": [
+      "serwomechanizm to silnik",
+      "przyjmuje pozycję od 0 do 180 stopni"
+    ]
+  },
+  {
+    "question": "Na jakiej zasadzie działa czujnik przeszkód?",
+    "relevant_slides": ["2.16"],
+    "expected_answer_points": [
+      "emituje światło podczerwone",
+      "sprawdza, czy zostało odbite od przeszkody",
+      "ciemne obiekty pochłaniają światło, więc reakcja jest gorsza"
+    ]
+  },
+  {
+    "question": "Jak podłączyć aktywny piezobuzzer do Arduino?",
+    "relevant_slides": ["3.8"],
+    "expected_answer_points": [
+      "minus do GND",
+      "plus do pinu cyfrowego",
+      "sygnał wysoki włącza dźwięk, niski wyłącza"
+    ]
+  },
+  {
+    "question": "Czym jest soczewka Fresnela i do czego służy w czujniku obecności?",
+    "relevant_slides": ["3.13"],
+    "expected_answer_points": [
+      "półprzezroczysta kopuła na czujniku",
+      "skupia promieniowanie podczerwone na czujniku",
+      "przezroczysta dla podczerwieni mimo półprzezroczystości dla oka"
+    ]
+  },
+  {
+    "question": "Co to jest płytka stykowa (breadboard) i kiedy się przydaje?",
+    "relevant_slides": ["3.14"],
+    "expected_answer_points": [
+      "platforma do prototypowania obwodów",
+      "połączenia łączone poziomo lub pionowo",
+      "przydatna, gdy trzeba kilka razy użyć portu 5V lub GND"
+    ]
+  },
+  {
+    "question": "Jak podłączyć diodę LED RGB na lekcji L4 (do których pinów R, G, B)?",
+    "relevant_slides": ["4.10"],
+    "expected_answer_points": [
+      "minus do GND",
+      "R do pinu 13, G do pinu 12, B do pinu 11"
+    ]
+  },
+  {
+    "question": "Czym różni się sygnał analogowy od cyfrowego?",
+    "relevant_slides": ["4.11"],
+    "expected_answer_points": [
+      "sygnał analogowy zmienia się płynnie",
+      "zakres w Arduino Uno: 0-1023",
+      "sygnał cyfrowy ma tylko dwa stany (wysoki/niski)"
+    ]
+  },
+  {
+    "question": "Czym jest sygnał PWM i w jakim zakresie się zmienia?",
+    "relevant_slides": ["4.13"],
+    "expected_answer_points": [
+      "modulacja szerokości impulsów",
+      "szybkie włączanie i wyłączanie sygnału cyfrowego",
+      "zakres 0-255"
+    ]
+  },
+  {
+    "question": "Jak podłączyć czujnik światła (fotorezystor)?",
+    "relevant_slides": ["4.16"],
+    "expected_answer_points": [
+      "VCC do 5V, GND do GND",
+      "AO do pinu analogowego",
+      "DO nie jest używane"
+    ]
+  },
+  {
+    "question": "Jakie sygnały wysyła joystick i od czego zależą?",
+    "relevant_slides": ["5.7"],
+    "expected_answer_points": [
+      "sygnał analogowy z portów VRX i VRY",
+      "para kierunków góra-dół oraz prawo-lewo"
+    ]
+  },
+  {
+    "question": "Jak podłączyć joystick do Arduino?",
+    "relevant_slides": ["5.8"],
+    "expected_answer_points": [
+      "GND do GND, VCC do 5V",
+      "VRX i VRY do portów analogowych",
+      "SW (przycisk) opcjonalnie"
+    ]
+  },
+  {
+    "question": "Jaki sygnał trzeba podać na pin diody w listwie LED, aby zaczęła świecić?",
+    "relevant_slides": ["5.11"],
+    "expected_answer_points": [
+      "listwa to 8 diod RGB",
+      "VCC do 5V, R/G/B do GND określa kolor",
+      "aby dioda świeciła, trzeba podać sygnał niski"
+    ]
+  },
+  {
+    "question": "Co to jest podprogram i po co się go używa?",
+    "relevant_slides": ["6.9"],
+    "expected_answer_points": [
+      "zapisana sekwencja poleceń pod jedną nazwą",
+      "eliminuje powtarzanie tych samych poleceń",
+      "poprawia strukturę i czytelność programu"
+    ]
+  },
+  {
+    "question": "Jak zbudowany jest wyświetlacz siedmiosegmentowy i co to jest wspólna katoda?",
+    "relevant_slides": ["6.8"],
+    "expected_answer_points": [
+      "każdy segment to osobna dioda LED",
+      "port com to wspólna katoda dla wszystkich diod",
+      "com podłącza się do GND przez rezystor"
+    ]
+  },
+  {
+    "question": "Do czego służy moduł I2C przy pracy z wyświetlaczem LCD?",
+    "relevant_slides": ["7.8"],
+    "expected_answer_points": [
+      "zmniejsza liczbę potrzebnych połączeń",
+      "interfejs szeregowy",
+      "przy I2C liczba pinów spada do 4"
+    ]
+  },
+  {
+    "question": "Jak przeliczyć odczyt z czujnika temperatury LM35 na stopnie Celsjusza?",
+    "relevant_slides": ["7.15", "7.16"],
+    "expected_answer_points": [
+      "czujnik wydaje 0,01V na każdy stopień Celsjusza",
+      "1023 odpowiada napięciu 5V",
+      "wzór: temperatura = ((5*sygnał analogowy)/1023)*100"
+    ]
+  },
+  {
+    "question": "Jak działa silnik elektryczny?",
+    "relevant_slides": ["8.5"],
+    "expected_answer_points": [
+      "ramka z prądem między magnesami zaczyna się obracać",
+      "zmiana kierunku prądu podtrzymuje ruch obrotowy",
+      "w prawdziwych silnikach zmiana kierunku odbywa się automatycznie"
+    ]
+  },
+  {
+    "question": "Jak porty IN1, IN2 i EN sterownika silnika wpływają na pracę silnika?",
+    "relevant_slides": ["8.8"],
+    "expected_answer_points": [
+      "IN1/IN2 ustawiają kierunek obrotu (wysoki/niski w różnych kombinacjach)",
+      "oba niskie lub oba wysokie = brak obrotu",
+      "port PWM (EN, zakres 0-255) reguluje prędkość"
+    ]
+  },
+  {
+    "question": "Na czym polega echolokacja i jak działa czujnik HC-SR04?",
+    "relevant_slides": ["9.5", "9.6"],
+    "expected_answer_points": [
+      "określanie położenia obiektu na podstawie czasu powrotu odbitej fali",
+      "nadajnik Trig wysyła falę ultradźwiękową",
+      "odbiornik Echo rejestruje odbitą falę, co pozwala policzyć odległość"
+    ]
+  },
+  {
+    "question": "Jakie zadania praktyczne wykonujemy z sonarem HC-SR04 na lekcji L9?",
+    "relevant_slides": ["9.9", "9.13"],
+    "expected_answer_points": [
+      "podłączenie sonaru i wyświetlenie odległości na monitorze portu",
+      "zatrzymanie platformy po zbliżeniu się do przeszkody",
+      "cofnięcie i skręt, aby ominąć przeszkodę"
+    ]
+  },
+  {
+    "question": "Jaka jest różnica między aktywnym a pasywnym głośnikiem piezoelektrycznym?",
+    "relevant_slides": ["10.6", "10.7"],
+    "expected_answer_points": [
+      "aktywny: wysoki sygnał włącza dźwięk, niski wyłącza, bez kontroli tonu",
+      "pasywny: częstotliwość dźwięku steruje się sygnałem PWM"
+    ]
+  },
+  {
+    "question": "Jak działa funkcja tone i jakie ma parametry?",
+    "relevant_slides": ["10.8"],
+    "expected_answer_points": [
+      "ustawia dźwięk na pasywnym głośniku piezo",
+      "parametry: port, częstotliwość, opcjonalnie czas trwania"
+    ]
+  },
+  {
+    "question": "Jakimi metodami można realizować zdalne sterowanie?",
+    "relevant_slides": ["11-12.6", "11-12.7"],
+    "expected_answer_points": [
+      "podczerwień",
+      "Bluetooth",
+      "Wi-Fi, GSM, ultradźwiękowe"
+    ]
+  },
+  {
+    "question": "Jak podłączyć czujnik podczerwieni (IR) odbierający sygnał z pilota?",
+    "relevant_slides": ["11-12.9"],
+    "expected_answer_points": [
+      "S do pinu cyfrowego",
+      "plus do 5V",
+      "minus do GND"
+    ]
+  },
+  {
+    "question": "Jakim blokiem generuje się liczbę losową w Ardublock i w jakim jest zakresie?",
+    "relevant_slides": ["13.6"],
+    "expected_answer_points": [
+      "blok random",
+      "zakres od min (włącznie) do max (wyłącznie)"
+    ]
+  },
+  {
+    "question": "W jakich zadaniach na lekcji L13 wykorzystujemy liczby losowe?",
+    "relevant_slides": ["13.9", "13.13", "13.14", "13.16"],
+    "expected_answer_points": [
+      "losowy obrót serwomechanizmu",
+      "losowa częstotliwość i długość dźwięku po wykryciu przeszkody",
+      "losowa zmiana koloru diody RGB",
+      "symulator kostki do gry (losowa liczba od 1 do 6)"
+    ]
+  },
+  {
+    "question": "Do wykrywania jakich gazów służy czujnik MQ-135?",
+    "relevant_slides": ["14.4"],
+    "expected_answer_points": [
+      "NH3, NOx",
+      "opary alkoholu, benzyny",
+      "dym, CO2"
+    ]
+  },
+  {
+    "question": "Do czego służy Serial Plotter?",
+    "relevant_slides": ["14.5"],
+    "expected_answer_points": [
+      "obserwacja wykresu danych z portu szeregowego w czasie rzeczywistym",
+      "oś Y to wartość, oś X to czas"
+    ]
+  },
+  {
+    "question": "Na czym polega Level 3 finałowej gry na lekcji L16 (pułapka)?",
+    "relevant_slides": ["16.9"],
+    "expected_answer_points": [
+      "budowa pułapki z serwomechanizmem",
+      "pomiar odległości czujnikiem ruchu/ultradźwiękowym",
+      "serwomechanizm zamyka pułapkę, gdy ofiara jest blisko"
+    ]
+  },
+  {
+    "question": "Jak podłączony jest fotorezystor w zadaniu automatycznego oświetlenia (Level 4, L16)?",
+    "relevant_slides": ["16.11", "16.12"],
+    "expected_answer_points": [
+      "fotorezystor do portu A0",
+      "dioda LED RGB włącza się automatycznie po zachodzie słońca",
+      "R, G, B podłączone do osobnych pinów PWM"
+    ]
+  },
+  {
+    "question": "Czym jest kompilacja i jaki jest jej cel w Arduino IDE?",
+    "relevant_slides": ["17.6"],
+    "expected_answer_points": [
+      "kompilacja to proces tłumaczenia kodu napisanego przez człowieka na kod maszynowy",
+      "kompilator sprawdza poprawność kodu przed wgraniem",
+      "po udanym wgraniu pojawia się komunikat 'Done uploading'"
+    ]
+  },
+  {
+    "question": "Do czego służy funkcja pinMode() i jakie przyjmuje parametry?",
+    "relevant_slides": ["17.11"],
+    "expected_answer_points": [
+      "ustawia tryb pracy portu cyfrowego",
+      "pierwszy parametr to numer portu",
+      "drugi parametr to OUTPUT (wysyłanie sygnału) lub INPUT (odbieranie sygnału)"
+    ]
+  },
+  {
+    "question": "Jaka jest różnica między sygnałem cyfrowym a analogowym?",
+    "relevant_slides": ["19.7"],
+    "expected_answer_points": [
+      "sygnał cyfrowy ma tylko dwa stany (wysoki/niski)",
+      "sygnał analogowy zmienia się płynnie",
+      "zakres sygnału analogowego w Arduino Uno to 0-1023"
+    ]
+  },
+  {
+    "question": "Do czego służy sygnał PWM i jaki jest jego zakres wartości?",
+    "relevant_slides": ["19.14", "19.15"],
+    "expected_answer_points": [
+      "PWM to modulacja szerokości impulsu, szybkie włączanie/wyłączanie sygnału cyfrowego",
+      "tworzy iluzję sygnału analogowego (np. do regulacji jasności LED)",
+      "zakres wartości w Arduino Uno: 0-255, porty PWM oznaczone symbolem ~"
+    ]
+  },
+  {
+    "question": "Czym jest biblioteka w programowaniu i po co się jej używa?",
+    "relevant_slides": ["20.6", "20.7"],
+    "expected_answer_points": [
+      "zbiór gotowych funkcji do obsługi urządzeń, analogia do zbioru książek",
+      "ułatwia pracę - nie trzeba samodzielnie pisać funkcji",
+      "niektóre biblioteki są wbudowane, inne trzeba dodać (Sketch -> Include library -> Add .ZIP Library)"
+    ]
+  },
+  {
+    "question": "Jakie podstawowe typy zmiennych w C++ zostały omówione i co przechowują?",
+    "relevant_slides": ["18.7", "18.8", "18.9", "18.10"],
+    "expected_answer_points": [
+      "int - liczby całkowite",
+      "String - wyrażenia tekstowe (w podwójnych cudzysłowach)",
+      "char - pojedynczy znak (w pojedynczych cudzysłowach)",
+      "boolean - wartości logiczne true/false"
+    ]
+  },
+  {
+    "question": "Jak działa pętla for i jakie trzy elementy trzeba w niej zadeklarować?",
+    "relevant_slides": ["24.7"],
+    "expected_answer_points": [
+      "zmienna i jej wartość początkowa",
+      "warunek kontynuacji pętli",
+      "krok zmiany zmiennej (np. i++, i += 2)"
+    ]
+  },
+  {
+    "question": "Jakie są trzy rodzaje funkcji w C++ omówione na zajęciach i czym się różnią?",
+    "relevant_slides": ["26.6"],
+    "expected_answer_points": [
+      "funkcje wykonujące (void, bez zwracania wartości)",
+      "funkcje z parametrami",
+      "funkcje zwracające wartość (return)"
+    ]
+  },
+  {
+    "question": "Jak wygenerować liczbę losową w C++ i na czym polega problem pseudolosowości Arduino?",
+    "relevant_slides": ["23.7", "23.11", "23.12"],
+    "expected_answer_points": [
+      "funkcja random(min, max) lub random(max)",
+      "Arduino generuje liczby pseudolosowe według algorytmu, więc te same zakresy dają te same wyniki",
+      "randomSeed(analogRead(pin)) pozwala uzyskać bardziej losowy wynik"
+    ]
+  },
+  {
+    "question": "Jak podłącza się serwomechanizm i jakich funkcji biblioteki Servo się używa?",
+    "relevant_slides": ["20.9", "20.11", "20.12"],
+    "expected_answer_points": [
+      "brązowy przewód GND, czerwony 5V, żółty do pinu cyfrowego",
+      "dołączenie biblioteki #include <Servo.h> i utworzenie zmiennej typu Servo",
+      "attach(port) przypisuje port, write(kąt) ustawia pozycję 0-180 stopni"
+    ]
+  },
+  {
+    "question": "Jak działa czujnik ultradźwiękowy HC-SR04 (sonar) i jakiej biblioteki się do niego używa?",
+    "relevant_slides": ["20.18", "20.20"],
+    "expected_answer_points": [
+      "nadajnik Trig wysyła falę ultradźwiękową, odbiornik Echo rejestruje falę odbitą",
+      "odległość obliczana na podstawie czasu i prędkości fali",
+      "wykorzystuje się bibliotekę NewPing, funkcja ping_cm() zwraca odległość"
+    ]
+  },
+  {
+    "question": "Czym różni się operator logiczny 'i' (&&/and) od operatora 'lub' (||/or) w warunkach C++?",
+    "relevant_slides": ["18.20", "18.21"],
+    "expected_answer_points": [
+      "'i' (&&/and) wymaga spełnienia obu warunków jednocześnie",
+      "'lub' (||/or) wymaga spełnienia co najmniej jednego z warunków",
+      "oba operatory łączą dwa lub więcej warunków w jednym if"
+    ]
+  },
+  {
+    "question": "Jak działa wyświetlacz LCD z modułem I2C i jakich funkcji biblioteki się używa?",
+    "relevant_slides": ["21.10", "21.11", "21.12"],
+    "expected_answer_points": [
+      "moduł I2C zmniejsza liczbę potrzebnych pinów do 4 (GND, VCC, SDA, SCL)",
+      "tworzy się zmienną LiquidCrystal_I2C z adresem, liczbą znaków i wierszy",
+      "begin() inicjalizuje wyświetlacz, backlight() włącza podświetlenie, setCursor() i print() ustawiają i wyświetlają tekst"
+    ]
+  },
+  {
+    "question": "Do czego służy funkcja map() i kiedy jest przydatna?",
+    "relevant_slides": ["20.15", "20.16"],
+    "expected_answer_points": [
+      "przeskalowuje wartość z jednego zakresu na inny",
+      "przydatna np. przy sterowaniu serwomechanizmem za pomocą potencjometru (zakres 0-1023 na 0-180)",
+      "parametry: zmienna do przeskalowania, min/max zakresu źródłowego, min/max zakresu docelowego"
+    ]
+  },
+  {
+    "question": "Jak zrealizowane jest sterowanie robotem/platformą przez Bluetooth w aplikacji App Inventor i na Arduino?",
+    "relevant_slides": ["35-36.6", "35-36.15", "35-36.30"],
+    "expected_answer_points": [
+      "aplikacja wysyła znaki tekstowe przez BluetoothClient (np. '1', '2', 'f', 'b')",
+      "moduł HC-06 podłączony do Arduino odbiera dane (RXD do TX, TXD do RX)",
+      "program na Arduino odczytuje znak i na jego podstawie wywołuje odpowiednią funkcję ruchu"
+    ]
+  },
+  {
+    "question": "Na czym polega Level 1 gry powtórkowej na lekcji L30 (działo laserowe)?",
+    "relevant_slides": ["30.4", "30.5"],
+    "expected_answer_points": [
+      "podłączenie lasera i przycisku",
+      "po naciśnięciu przycisku laser się włącza (digitalRead sterujące digitalWrite)",
+      "wykorzystanie znanych funkcji pinMode, digitalRead, digitalWrite"
+    ]
+  },
+  {
+    "question": "Jak podłączony jest czytnik linii papilarnych FPM10A i jakie ma podstawowe funkcje na lekcji L28-29?",
+    "relevant_slides": ["28-29.4", "28-29.5"],
+    "expected_answer_points": [
+      "VCC do 3.3V, GND, RX do pinu 3, TX do pinu 2",
+      "podstawowe funkcje: zapis nowego odcisku (writeNewFinger) i odczyt/porównanie (getFingerID)",
+      "komunikacja z prędkością 57600, monitor portu z prędkością 9600"
+    ]
+  },
+  {
+    "question": "Jak działa czujnik temperatury i wilgotności DHT11 na lekcji L21-22?",
+    "relevant_slides": ["21-22.17", "21-22.18", "21-22.19"],
+    "expected_answer_points": [
+      "podłączony do portu cyfrowego, mierzy temperaturę i wilgotność",
+      "wymaga bibliotek DHT i Adafruit-sensor-Master oraz #include <DHT.h>",
+      "readTemperature() i readHumidity() zwracają odpowiednie wartości"
+    ]
+  },
+  {
+    "question": "Jak podłączona jest i sterowana świetlówka LED (taśma LED) za pomocą pętli for na lekcji L25?",
+    "relevant_slides": ["25.6", "25.7", "25.9"],
+    "expected_answer_points": [
+      "pierwsza dioda do pinu D2, ostatnia do D9, piny kolorów R/G/B do D10-D12",
+      "aby dioda świeciła, trzeba podać sygnał niski (LOW)",
+      "pętla for w loop() włącza kolejno każdą diodę"
+    ]
+  },
+  {
+    "question": "Jak zbudowane jest odliczanie na wyświetlaczu siedmiosegmentowym na lekcji L27 i jak sterowane jest przyciskiem oraz głośnikiem piezo?",
+    "relevant_slides": ["27.5", "27.6", "27.9", "27.11", "27.12"],
+    "expected_answer_points": [
+      "wyświetlacz podłączony do portów 2-9, każda cyfra to osobna funkcja (np. one(), two())",
+      "odliczanie startuje po naciśnięciu przycisku (digitalRead)",
+      "po dojściu do zera aktywny głośnik piezo wydaje dźwięk (digitalWrite HIGH)"
+    ]
+  },
+  {
+    "question": "Jak stworzyć i wywołać prostą funkcję z parametrem w C++ na przykładzie funkcji blynk() z lekcji L26?",
+    "relevant_slides": ["26.11", "26.13", "26.15"],
+    "expected_answer_points": [
+      "deklaracja: void blynk(int pin, float delay_time) { ... }",
+      "wywołanie: blynk(13, 0.5) w loop()",
+      "parametr wpływa np. na czas opóźnienia migania diody"
+    ]
+  },
+  {
+    "question": "Jak zbudowana jest pierwsza aplikacja w App Inventor pokazana na lekcji L32 (przycisk zmieniający tekst etykiety)?",
+    "relevant_slides": ["32.13", "32.17", "32.18", "32.19"],
+    "expected_answer_points": [
+      "przeciąga się Button i Label na ekran w trybie Designer",
+      "w trybie Blocks używa się bloku when Button1.Click",
+      "do bloku dołącza się set Label1.Text to z wpisanym tekstem"
+    ]
+  },
+  {
+    "question": "Jak zrealizowane jest sterowanie piłką za pomocą akcelerometru w App Inventor na lekcji L33?",
+    "relevant_slides": ["33.16", "33.17", "33.18", "33.20"],
+    "expected_answer_points": [
+      "komponent AccelerometerSensor dodany do Canvas",
+      "blok when AccelerometerSensor1.AccelerationChanged uruchamia się przy zmianie położenia telefonu",
+      "wartości xAccel i yAccel dodaje się do współrzędnych X i Y sprite'a gracza"
+    ]
+  },
+  {
+    "question": "Jak działa mechanizm kolizji sprite'ów (gwiazdek) i liczenia punktów w grze z lekcji L33?",
+    "relevant_slides": ["33.22", "33.23", "33.24", "33.29"],
+    "expected_answer_points": [
+      "blok when Star1.CollidedWith uruchamia się przy kontakcie sprite'a z graczem",
+      "gwiazdka staje się niewidoczna, a zmienna wynik jest zwiększana",
+      "Clock1.Timer co 100 ms odświeża wyświetlany wynik na Canvas (Canvas1.Clear + DrawText)"
+    ]
+  },
+  {
+    "question": "Jak zaimplementowany jest ruch pocisku i wroga w grze Space Shooter na lekcji L34?",
+    "relevant_slides": ["34.12", "34.15"],
+    "expected_answer_points": [
+      "timer (Clock1.Timer) zmniejsza wartość Y pocisku, przesuwając go w górę ekranu",
+      "wróg porusza się w dół, a po dotarciu do krawędzi wraca na losową pozycję poziomą",
+      "kolizja pocisku z wrogiem zwiększa licznik punktów"
+    ]
+  },
+  {
+    "question": "Jak podłączony jest moduł Bluetooth HC-06 do Arduino i jakiej biblioteki się używa, aby nie blokować portu podczas wgrywania programu (lekcja L35-36)?",
+    "relevant_slides": ["35-36.12", "35-36.13", "35-36.14"],
+    "expected_answer_points": [
+      "RXD modułu podłączamy do TX Arduino, TXD do RX",
+      "domyślne hasło parowania to 1111 lub 1234",
+      "biblioteka SoftwareSerial pozwala uniknąć konfliktu z portami 0/1 używanymi też przez komputer"
+    ]
+  },
+  {
+    "question": "Jak sterowana jest platforma Leo (skręty i jazda) za pomocą funkcji forward(), backward(), left(), right() na lekcji L35-36?",
+    "relevant_slides": ["35-36.26", "35-36.27", "35-36.28", "35-36.29"],
+    "expected_answer_points": [
+      "obroty realizowane są serwomechanizmem na porcie 11 (90° prosto, 150° lewo, 30° prawo)",
+      "jazda do przodu/tyłu sterowana silnikami przez analogWrite i digitalWrite",
+      "funkcja stp() zatrzymuje platformę ustawiając analogWrite na 0"
+    ]
+  },
+  {
+    "question": "Jak działa funkcja randomSeed() i po co jest potrzebna, zgodnie z lekcją L23?",
+    "relevant_slides": ["23.12", "23.13"],
+    "expected_answer_points": [
+      "zmienia punkt początkowy generowania liczb pseudolosowych",
+      "jako parametr używa się np. analogRead z niepodłączonego pinu, aby uzyskać bardziej losową wartość",
+      "stała liczba jako parametr nadal dawałaby powtarzalne wyniki"
+    ]
+  },
+  {
+    "question": "Jakie są główne kroki pracy z monitorem portu szeregowego (Serial.begin, print, println) na lekcji L17?",
+    "relevant_slides": ["17.22", "17.23", "17.24"],
+    "expected_answer_points": [
+      "Serial.begin(9600) inicjalizuje komunikację z prędkością 9600 bodów",
+      "Serial.print() wyświetla bez przejścia do nowej linii, Serial.println() z przejściem",
+      "tekst przekazywany jako parametr w cudzysłowach"
+    ]
+  }
+]

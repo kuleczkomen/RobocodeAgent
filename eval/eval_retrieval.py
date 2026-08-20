@@ -5,9 +5,11 @@ eval_retrieval.py — automatyczna ewaluacja jakości retrievalu (Faza 4).
 import argparse
 import json
 from pathlib import Path
+from utils.output_path import get_output_path
 
 from backend.rag_query import retrieve_chunks, detect_lesson_id
 
+RESULTS_PATH = get_output_path(Path("eval_output.json"))
 
 def load_eval_set(path: str) -> list[dict]:
     with open(path, encoding="utf-8") as f:
@@ -171,7 +173,7 @@ def main():
     # Opcjonalny filtr subject
     parser.add_argument("--subject", default=None)
     # Ścieżka do zapisu pełnych wyników JSON
-    parser.add_argument("--output", default=None)
+    parser.add_argument("--output", default="eval_output.json")
     # Wypisz surowe source_file/slide_numbers dla każdego zwróconego chunku —
     # przydatne do zdiagnozowania niezgodności formatu z relevant_slides
     parser.add_argument("--debug", action="store_true")

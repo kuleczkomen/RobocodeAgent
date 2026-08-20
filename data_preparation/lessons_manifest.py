@@ -82,6 +82,86 @@ LESSONS = {
         "lesson_title": "Czujnik gazu i przekaźnik",
         "lesson_id": "16"
     },
+"Arduino Junior Lesson 17 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Wstęp",
+    "lesson_id": "17"
+},
+"Arduino Junior Lesson 18 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Zmienne i warunki",
+    "lesson_id": "18"
+},
+"Arduino Junior Lesson 19 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Piny analogowe",
+    "lesson_id": "19"
+},
+"Arduino Junior Lesson 20 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "Biblioteki w C++",
+    "lesson_id": "20"
+},
+"Arduino Junior Lesson 21-22 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "Biblioteki w C++. Część 2",
+    "lesson_id": "21-22"
+},
+"Arduino Junior Lesson 23 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "Praca z liczbami losowymi w C++",
+    "lesson_id": "23"
+},
+"Arduino Junior Lesson 24 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Pętle",
+    "lesson_id": "24"
+},
+"Arduino Junior Lesson 25 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Pętle. Część 2",
+    "lesson_id": "25"
+},
+"Arduino Junior Lesson 26 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Funkcje",
+    "lesson_id": "26"
+},
+"Arduino Junior Lesson 27 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Funkcje. Część 2",
+    "lesson_id": "27"
+},
+"Arduino Junior Lesson 28-29 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Czytnik linii papilarnych",
+    "lesson_id": "28-29"
+},
+"Arduino Junior Lesson 30 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "C++. Powtórzenie",
+    "lesson_id": "30"
+},
+"Arduino Junior Lesson 32 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "App Inventor. Gra Clicker",
+    "lesson_id": "32"
+},
+"Arduino Junior Lesson 33 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "App Inventor. Akcelerometr",
+    "lesson_id": "33"
+},
+"Arduino Junior Lesson 34 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "App Inventor. Gra Space Shooter",
+    "lesson_id": "34"
+},
+"Arduino Junior Lesson 35-36 PL": {
+    "subject": "Arduino Junior",
+    "lesson_title": "Sterowanie platformą",
+    "lesson_id": "35-36"
+}
 }
 
 

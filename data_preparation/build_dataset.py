@@ -10,6 +10,7 @@ Uruchomienie:
 """
 
 import json
+import re
 from pathlib import Path
 
 from text_cleaning import extract_clean_pages, load_ocr_result
@@ -47,6 +48,12 @@ def main() -> None:
 
         all_chunks.extend(chunks)
         print(f"[OK] {source_file}: {len(pages)} slajdów -> {len(chunks)} chunków")
+
+    all_chunks.sort(
+        key=lambda c: int(re.search(r"\d+", str(c.get("lesson_id", ""))).group())
+        if re.search(r"\d+", str(c.get("lesson_id", "")))
+        else c.get("lesson_id", "")
+    )
 
     CHUNKS_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(CHUNKS_OUTPUT_PATH, "w", encoding="utf-8") as f:

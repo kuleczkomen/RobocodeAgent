@@ -1,13 +1,12 @@
 import os
 import json
 from pathlib import Path
-from dotenv import load_dotenv
 from azure.core.credentials import AzureKeyCredential
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from utils import config
 
-ENDPOINT = config.AZURE_DOCUMENT_INTELLIGENCE_ENDPOINT
-KEY = config.AZURE_DOCUMENT_INTELLIGENCE_KEY
+ENDPOINT = config.DOCUMENT_INTELLIGENCE_ENDPOINT
+KEY = config.DOCUMENT_INTELLIGENCE_KEY
 
 def main() -> None:
     # initialise SDK Azure client
