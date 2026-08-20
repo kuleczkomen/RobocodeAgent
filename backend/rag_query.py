@@ -13,6 +13,7 @@ from azure.core.credentials import AzureKeyCredential
 from backend.chat_prompt import get_system_prompt
 from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizedQuery
+import re
 
 embedding_client = AzureOpenAI(
     azure_endpoint=config.OPENAI_ENDPOINT,
@@ -35,6 +36,16 @@ EMBEDDING_DEPLOYMENT = config.EMBEDDING_NAME
 CHAT_DEPLOYMENT = config.AI_CHAT_NAME
 SYSTEM_PROMPT = get_system_prompt()
 
+# łapie: "lekcja 4", "lekcji 11-12", "lekcję 3", "L4", "l11-12"
+LESSON_QUERY_RE = re.compile(
+    r"(?:lekcj\w*\s+|L)(\d+(?:-\d+)?)",
+    re.IGNORECASE,
+)
+
+def detect_lesson_id(question: str) -> str | None:
+    match = LESSON_QUERY_RE.search(question)
+    return f"L{match.group(1)}" if match else None
+
 def embed_query_test(text: str) -> list[float]:
     print("Calling embeddings...")
     response = embedding_client.embeddings.create(
@@ -48,7 +59,12 @@ def embed_query(text: str) -> list[float]:
     return response.data[0].embedding
 
 
-def retrieve_chunks(question: str, top_k: int = 5, subject_filter: str | None = None):
+def retrieve_chunks(
+        question: str,
+        top_k: int = 5,
+        subject_filter: str | None = None,
+        lesson_filter: str | None = None
+):
     """Wyszukiwanie hybrydowe: vector (kNN) + keyword (BM25), łączone przez RRF.
     Dostępne na Free tier — semantic ranker (L2 rerank) NIE jest dostępny na Free,
     wymaga tier Basic+."""
@@ -63,10 +79,15 @@ def retrieve_chunks(question: str, top_k: int = 5, subject_filter: str | None = 
         search_text=question,  # dodanie search_text obok vector_queries = hybrid (RRF)
         vector_queries=[vector_query],
         top=top_k,
-        select=["id", "content", "subject", "lesson_title", "slide_numbers", "source_file"],
-    )
+        select=["id", "content", "subject", "lesson_title", "lesson_id", "slide_numbers", "source_file"],    )
+
+    filters = []
     if subject_filter:
-        search_kwargs["filter"] = f"subject eq '{subject_filter}'"
+        filters.append(f"subject eq '{subject_filter}'")
+    if lesson_filter:
+        filters.append(f"lesson_id eq '{lesson_filter}'")
+    if filters:
+        search_kwargs["filter"] = " and ".join(filters)
 
     return list(search_client.search(**search_kwargs))
 
@@ -79,14 +100,23 @@ def build_context(chunks) -> str:
     return "\n\n---\n\n".join(parts)
 
 
-def ask(question: str, top_k: int = 5, subject_filter: str | None = None) -> dict:
-    chunks = retrieve_chunks(question, top_k=top_k, subject_filter=subject_filter)
+def ask(
+        question: str,
+        top_k: int = 5,
+        subject_filter: str | None = None,
+        lesson_filter: str | None = None
+) -> dict:
+
+    if lesson_filter is None:
+        lesson_filter = detect_lesson_id(question)
+
+    chunks = retrieve_chunks(question, top_k=top_k, subject_filter=subject_filter, lesson_filter=lesson_filter)
     context = build_context(chunks)
 
-    messages = [
-        {"role": "system", "content": SYSTEM_PROMPT},
-        {"role": "user", "content": f"Kontekst:\n{context}\n\nPytanie nauczyciela: {question}"},
-    ]
+    # messages = [
+    #     {"role": "system", "content": SYSTEM_PROMPT},
+    #     {"role": "user", "content": f"Kontekst:\n{context}\n\nPytanie nauczyciela: {question}"},
+    # ]
 
     response = chat_client.responses.create(
         extra_body={

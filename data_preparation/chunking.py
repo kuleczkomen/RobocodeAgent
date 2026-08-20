@@ -4,12 +4,44 @@ chunking.py
 Budowa chunków (co do zasady: 1 chunk = 1 slajd, z metadanymi) na podstawie
 tekstu przygotowanego przez text_cleaning.py. Bardzo krótkie slajdy są
 doklejane do sąsiedniego, żeby nie mieć pustych/bezwartościowych embeddingów.
+
+Dodatkowo: każdy chunk dostaje pole "lesson_id" (np. "L4", "L11-12"),
+wyciągane regexem z source_file (typu "Arduino Junior Lesson 11-12 PL").
+Dzięki temu retrieve_chunks() w rag_query.py może filtrować po numerze
+lekcji (search_kwargs["filter"] = f"lesson_id eq '{lesson_id}'") zamiast
+polegać wyłącznie na podobieństwie semantycznym — bo samo embedowanie
+tekstu pytania "lekcja 11-12" NIE gwarantuje, że wyszukiwarka nie podciągnie
+też sąsiednich lekcji (9, 13 itd.), skoro treściowo są podobne.
+
+WAŻNE: pole "lesson_id" musi być dodane do schematu indeksu Azure AI Search
+jako filterable (i zaindeksowane na nowo dla istniejących dokumentów), żeby
+filtr eq na nim faktycznie działał.
 """
+
+import re
 
 MIN_WORDS_PER_CHUNK = 20
 
+# Dopasowuje "Lesson 4", "Lesson 11-12", niezależnie od wielkości liter,
+# w dowolnym miejscu nazwy pliku/tytułu (np. "Arduino Junior Lesson 11-12 PL").
+_LESSON_RE = re.compile(r"Lesson\s+(\d+(?:-\d+)?)", re.IGNORECASE)
+
+
 def _word_count(text: str) -> int:
     return len(text.split())
+
+
+def _extract_lesson_id(source_file: str) -> str:
+    """'Arduino Junior Lesson 4 PL' -> 'L4'; 'Arduino Junior Lesson 11-12 PL' -> 'L11-12'.
+
+    Jeśli konwencja nazewnictwa plików się zmieni i wzorzec nie złapie
+    numeru lekcji, zwracamy None — lepiej mieć wyraźny brak filtra niż
+    milcząco błędny lesson_id, który wygląda na poprawny.
+    """
+    match = _LESSON_RE.search(source_file)
+    if not match:
+        return None
+    return f"L{match.group(1)}"
 
 
 def build_chunks(
@@ -27,6 +59,16 @@ def build_chunks(
     chunk może w efekcie obejmować kilka numerów slajdów — stąd pole
     "slide_numbers" (lista), a nie pojedynczy "slide_number".
     """
+    lesson_id = _extract_lesson_id(source_file)
+    if lesson_id is None:
+        # Nie blokujemy builda (chunk i tak trafi do indeksu), ale trzeba
+        # to zauważyć — bez lesson_id filtrowanie po lekcji nie zadziała
+        # dla tego pliku.
+        print(
+            f"[chunking.py] UWAGA: nie udało się wyciągnąć numeru lekcji z "
+            f"source_file={source_file!r} — lesson_id będzie None dla tych chunków."
+        )
+
     ordered_slides = sorted(pages.items())  # [(numer_slajdu, [linie]), ...]
 
     # 1. sklej linie w treść per slajd, odsiej puste
@@ -59,6 +101,7 @@ def build_chunks(
             "content": content,
             "subject": subject,
             "lesson_title": lesson_title,
+            "lesson_id": lesson_id,
             "slide_numbers": slide_nums,
             "source_file": source_file,
         })

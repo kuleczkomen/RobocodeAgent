@@ -26,7 +26,7 @@ from openai import AzureOpenAI
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 SUBJECT_NAME = "arduino_junior"
-CHUNKS_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}.jsonl"
+CHUNKS_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}(2).jsonl"
 
 SEARCH_ENDPOINT = conf.SEARCH_ENDPOINT
 SEARCH_KEY = conf.SEARCH_KEY
@@ -108,6 +108,7 @@ def main() -> None:
                 "content_vector": vector,
                 "subject": chunk["subject"],
                 "lesson_title": chunk["lesson_title"],
+                "lesson_id": chunk["lesson_id"],
                 "slide_numbers": chunk["slide_numbers"],
                 "source_file": chunk["source_file"],
             })

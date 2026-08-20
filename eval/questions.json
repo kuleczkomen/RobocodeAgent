@@ -24,7 +24,7 @@
   ]
   },
   {
-  "question": "Z jakich czujników korzystamy na lekcji 3?",
+  "question": "Z jakich czujników korzystamy na lekcji L3?",
   "relevant_slides": ["3.4", "3.5", "3.8", "3.9", "3.12", "3.13"],
   "expected_answer_points": [
     "Serwo (serwomechanizm)",
@@ -34,7 +34,7 @@
   ]
   },
   {
-  "question": "Wymień wszystkie zadania, które pojawiają się na lekcji 11-12 Pilot zdalnego sterowania.",
+  "question": "Wymień wszystkie zadania, które pojawiają się na lekcji L11-12",
   "relevant_slides": ["11-12.4","11-12.8", "11-12.9"],
   "expected_answer_points": [
     "Podłączenie głośnika i potencjometru",

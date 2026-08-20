@@ -58,6 +58,7 @@ def main() -> None:
             # metadane — filterable/facetable, żeby dało się np. zawęzić wyszukiwanie do jednej lekcji
             SimpleField(name="subject", type=SearchFieldDataType.String, filterable=True, facetable=True),
             SimpleField(name="lesson_title", type=SearchFieldDataType.String, filterable=True, facetable=True),
+            SimpleField(name="lesson_id", type=SearchFieldDataType.String, filterable=True, facetable=True),
             SimpleField(
                 name="slide_numbers",
                 type=SearchFieldDataType.Collection(SearchFieldDataType.Int32),

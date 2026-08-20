@@ -6,7 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
-from backend.rag_query import retrieve_chunks
+from backend.rag_query import retrieve_chunks, detect_lesson_id
 
 
 def load_eval_set(path: str) -> list[dict]:
@@ -95,20 +95,27 @@ def evaluate_retrieval(
     for item in eval_set:
         question = item["question"]
         target_slides = {_parse_relevant_slide(s) for s in item["relevant_slides"]}
+        lesson_filter = detect_lesson_id(question)
 
-        retrieved = retrieve_chunks(question, top_k=top_k, subject_filter=subject_filter)
+        retrieved = retrieve_chunks(
+            question,
+            top_k=top_k,
+            subject_filter=subject_filter,
+            lesson_filter=lesson_filter
+        )
         retrieved_chunk_ids = [c.get("chunk_id", c.get("id")) for c in retrieved]
 
         if debug:
             print(f"\n[DEBUG] Pytanie: {question}")
             print(f"[DEBUG]   oczekiwane (target_slides): {sorted(f'{sf}.{sn}' for sf, sn in target_slides)}")
+            print(f"[DEBUG]   wykryty lesson_filter: {lesson_filter!r}")
+
             for i, c in enumerate(retrieved):
                 raw_source_file = c.get("source_file")
                 norm_source_file = _normalize_source_file(raw_source_file) if raw_source_file else None
-                print(
-                    f"[DEBUG]   #{i + 1} source_file zwrócony przez index = {raw_source_file!r} "
-                    f"(po normalizacji: {norm_source_file!r}), slide_numbers = {c.get('slide_numbers')}"
-                )
+                for slide_num in c.get('slide_numbers'):
+                    print(f"{norm_source_file!r}.{slide_num}", end=" ")
+                print()
 
         rank = None
         for i, chunk in enumerate(retrieved):

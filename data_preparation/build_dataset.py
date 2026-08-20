@@ -15,13 +15,15 @@ from pathlib import Path
 from text_cleaning import extract_clean_pages, load_ocr_result
 from chunking import build_chunks, MIN_WORDS_PER_CHUNK
 from lessons_manifest import get_lesson_meta
+from utils.output_path import get_output_path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 SUBJECT_NAME = "arduino_junior"
 
 OCR_OUTPUT_DIR = BASE_DIR / "output" / SUBJECT_NAME
-CHUNKS_OUTPUT_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}(2).jsonl"
+CHUNKS_OUTPUT_BASE_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}.jsonl"
+CHUNKS_OUTPUT_PATH = get_output_path(CHUNKS_OUTPUT_BASE_PATH)
 
 
 def main() -> None:
