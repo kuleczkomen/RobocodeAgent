@@ -10,7 +10,6 @@ Zaprojektowany jako moduł (nie skrypt jednorazowy), żeby:
 from utils import config
 from openai import OpenAI, AzureOpenAI
 from azure.core.credentials import AzureKeyCredential
-from backend.chat_prompt import get_system_prompt
 from azure.search.documents import SearchClient
 from azure.search.documents.models import VectorizedQuery
 import re
@@ -34,7 +33,6 @@ search_client = SearchClient(
 
 EMBEDDING_DEPLOYMENT = config.EMBEDDING_NAME
 CHAT_DEPLOYMENT = config.AI_CHAT_NAME
-SYSTEM_PROMPT = get_system_prompt()
 
 # łapie: "lekcja 4", "lekcji 11-12", "lekcję 3", "L4", "l11-12"
 LESSON_QUERY_RE = re.compile(

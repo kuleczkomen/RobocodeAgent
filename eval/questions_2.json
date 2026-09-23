@@ -565,5 +565,193 @@
       "Serial.print() wyświetla bez przejścia do nowej linii, Serial.println() z przejściem",
       "tekst przekazywany jako parametr w cudzysłowach"
     ]
+  },
+    {
+    "type": "lesson_plan",
+    "question": "Przygotuj plan lekcji nr 2 o inteligentnej bramce obrotowej — jakie zagadnienia i podłączenia elektroniczne powinienem omówić z uczniami?",
+    "relevant_slides": [
+      "2.6",
+      "2.9",
+      "2.15",
+      "2.21"
+    ],
+    "expected_answer_points": [
+      "wprowadzenie pojęcia inteligentnej bramki obrotowej i jej dwóch głównych elementów (czujnik przeszkód + serwomechanizm)",
+      "podłączenie serwomechanizmu (brązowy-GND, czerwony-5V, żółty-pin cyfrowy)",
+      "definicja i podłączenie czujnika przeszkód (GND-GND, VCC-5V, OUT-pin cyfrowy)",
+      "pytania podsumowujące o głównych elementach bramki oraz maksymalnym kącie obrotu serwomechanizmu"
+    ]
+  },
+  {
+    "type": "lesson_plan",
+    "question": "Zaplanuj lekcję 9 o czujniku parkowania (sonarze) — jakie kluczowe pojęcia i zadania praktyczne uwzględnić?",
+    "relevant_slides": [
+      "9.5",
+      "9.6",
+      "9.11",
+      "9.13"
+    ],
+    "expected_answer_points": [
+      "wyjaśnienie echolokacji jako metody określania położenia obiektu na podstawie czasu powrotu fali",
+      "działanie czujnika HC-SR04 (Trig wysyła falę ultradźwiękową, Echo odbiera falę odbitą)",
+      "pojęcie czynnika ludzkiego i systemu awaryjnego hamowania (SAH)",
+      "zadanie praktyczne: zatrzymanie platformy po zbliżeniu się na określoną odległość do przeszkody"
+    ]
+  },
+  {
+    "type": "lesson_plan",
+    "question": "Przygotuj plan podsumowującej lekcji 16 (gra końcowa) — jakie poziomy/wyzwania powinienem przeprowadzić z uczniami?",
+    "relevant_slides": [
+      "16.4",
+      "16.5",
+      "16.7",
+      "16.9",
+      "16.11",
+      "16.13"
+    ],
+    "expected_answer_points": [
+      "wprowadzenie fabularne do gry końcowej (rozbitek na bezludnej wyspie, zestaw elektroniki)",
+      "poziom 1: sygnał SOS realizowany przyciskiem i diodą LED",
+      "poziom 2: ochrona przed drapieżnikami — głośnik piezo i czujnik ruchu",
+      "poziom 3: pułapka z serwomechanizmem sterowana czujnikiem odległości",
+      "poziom 4: automatyczne oświetlenie z fotorezystorem",
+      "poziom 5: elektroniczny termometr z wyświetlaczem i czujnikiem temperatury"
+    ]
+  },
+  {
+    "type": "lesson_plan",
+    "question": "Jak zaplanować lekcję 19 o pinach analogowych w C++ — jakie pojęcia wprowadzić i jakie zadania dać uczniom?",
+    "relevant_slides": [
+      "19.7",
+      "19.8",
+      "19.9",
+      "19.14",
+      "19.16"
+    ],
+    "expected_answer_points": [
+      "różnica między sygnałem analogowym a cyfrowym (zakres analogowy 0-1023)",
+      "funkcja analogRead() do odczytu sygnału z portu analogowego",
+      "potencjometr jako zmienny rezystor sterujący różnymi parametrami",
+      "sygnał PWM i jego zakres wartości 0-255",
+      "funkcja analogWrite() do generowania sygnału PWM"
+    ]
+  },
+  {
+    "type": "lesson_plan",
+    "question": "Przygotuj konspekt lekcji 28-29 o czytniku linii papilarnych w C++.",
+    "relevant_slides": [
+      "28-29.3",
+      "28-29.4",
+      "28-29.5"
+    ],
+    "expected_answer_points": [
+      "moduł FPM10A i jego zastosowanie w systemach bezpieczeństwa",
+      "podłączenie czujnika (VCC do 3.3V, GND, oraz nowe wyjścia RX i TX)",
+      "kroki rozpoczęcia pracy: dołączenie biblioteki, utworzenie obiektu, uruchomienie monitora portu i czytnika z odpowiednimi prędkościami"
+    ]
+  },
+  {
+    "type": "lesson_plan",
+    "question": "Zaplanuj pierwszą lekcję z App Inventor (L32) — jak wprowadzić uczniów w tworzenie aplikacji na Androida?",
+    "relevant_slides": [
+      "32.3",
+      "32.7",
+      "32.13"
+    ],
+    "expected_answer_points": [
+      "AppInventor jako środowisko do tworzenia aplikacji na smartfony, wymagające jedynie konta Google",
+      "dwa tryby pracy: Designer (wygląd aplikacji) i Blocks (logika programu)",
+      "budowa pierwszej prostej aplikacji: przycisk i etykieta, wyświetlanie tekstu po kliknięciu przycisku"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak w prosty sposób wytłumaczyć uczniom, czym jest rezystor i po co się go stosuje?",
+    "relevant_slides": [
+      "1.19"
+    ],
+    "expected_answer_points": [
+      "rezystor służy do ograniczania prądu w obwodzie elektrycznym",
+      "bez rezystora dioda LED mogłaby ulec uszkodzeniu"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak wyjaśnić uczniom, czym jest Ardublock i do czego służy?",
+    "relevant_slides": [
+      "1.8"
+    ],
+    "expected_answer_points": [
+      "Ardublock to wizualizator (środowisko blokowe) do tworzenia programów dla Arduino",
+      "pozwala pisać programy bez konieczności znajomości tradycyjnego kodu tekstowego"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak wytłumaczyć uczniom budowę wyświetlacza siedmiosegmentowego?",
+    "relevant_slides": [
+      "6.7"
+    ],
+    "expected_answer_points": [
+      "wyświetlacz oparty jest na diodach LED",
+      "ma siedem segmentów oraz dodatkową kropkę do wyświetlania różnych informacji"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak uczniom wytłumaczyć pojęcie czynnika ludzkiego i systemu awaryjnego hamowania?",
+    "relevant_slides": [
+      "9.11"
+    ],
+    "expected_answer_points": [
+      "czynnik ludzki to przyczyna wypadku lub awarii wynikająca z nieprawidłowych działań człowieka",
+      "system awaryjnego hamowania powstał, aby minimalizować wpływ czynnika ludzkiego"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak wytłumaczyć uczniom zasadę działania pilota podczerwieni jako urządzenia do zdalnego sterowania?",
+    "relevant_slides": [
+      "11-12.8"
+    ],
+    "expected_answer_points": [
+      "pilot podczerwieni to jeden z najprostszych sposobów interakcji z urządzeniami elektronicznymi",
+      "tego typu urządzenia (np. telewizor, wieża stereo) znajdują się niemal w każdym domu"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak w przystępny sposób wytłumaczyć uczniom, czym jest Bluetooth i gdzie się go wykorzystuje?",
+    "relevant_slides": [
+      "35-36.5"
+    ],
+    "expected_answer_points": [
+      "Bluetooth stosuje się, gdy trzeba zrealizować sterowanie na małe odległości",
+      "zasada działania opiera się na wykorzystaniu fal radiowych"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak wyjaśnić uczniom, czym jest tabela ASCII i do czego jest potrzebna przy komunikacji przez Bluetooth?",
+    "relevant_slides": [
+      "35-36.11"
+    ],
+    "expected_answer_points": [
+      "ASCII to tabela, w której każdemu znakowi odpowiada określony kod",
+      "każdy wysyłany znak jest kodowany specjalnym numerem z tej tabeli"
+    ]
+  },
+  {
+    "type": "explain_topic",
+    "question": "Jak wytłumaczyć uczniom, czym są Canvas i sprite'y w App Inventor?",
+    "relevant_slides": [
+      "33.4",
+      "33.5"
+    ],
+    "expected_answer_points": [
+      "sprite'y to wszystkie obiekty widoczne na obrazie w grze 2D, w tym gracz i przeciwnicy",
+      "Canvas (płótno) to komponent umożliwiający rozmieszczanie i przesuwanie obiektów w trakcie działania programu"
+    ]
   }
+
 ]
