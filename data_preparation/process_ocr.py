@@ -1,25 +1,23 @@
-import os
 import json
 from pathlib import Path
-from azure.core.credentials import AzureKeyCredential
+
 from azure.ai.documentintelligence import DocumentIntelligenceClient
+from azure.core.credentials import AzureKeyCredential
+
 from utils import config
 
-ENDPOINT = config.DOCUMENT_INTELLIGENCE_ENDPOINT
-KEY = config.DOCUMENT_INTELLIGENCE_KEY
+client = DocumentIntelligenceClient(
+    endpoint=config.DOCUMENT_INTELLIGENCE_ENDPOINT,
+    credential=AzureKeyCredential(config.DOCUMENT_INTELLIGENCE_KEY)
+)
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR.parent
+
+input_dir = BASE_DIR / "dataset" / "arduino_junior"
+output_dir = BASE_DIR / "output" / "arduino_junior"
 
 def main() -> None:
-    # initialise SDK Azure client
-    client = DocumentIntelligenceClient(
-        endpoint=ENDPOINT,
-        credential=AzureKeyCredential(KEY)
-    )
-
-    SCRIPT_DIR = Path(__file__).resolve().parent
-    BASE_DIR = SCRIPT_DIR.parent
-
-    input_dir = BASE_DIR / "dataset" / "arduino_junior"
-    output_dir = BASE_DIR / "output" / "arduino_junior"
 
     pdf_files = list(input_dir.glob("*.pdf"))
     print(f"Znaleziono {len(pdf_files)} plików PDF.")
