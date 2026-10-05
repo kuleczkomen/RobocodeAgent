@@ -1,6 +1,7 @@
 import json
 from pathlib import Path
 
+import argparse
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.core.credentials import AzureKeyCredential
 
@@ -14,10 +15,16 @@ client = DocumentIntelligenceClient(
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
 
-input_dir = BASE_DIR / "dataset" / "arduino_junior"
-output_dir = BASE_DIR / "output" / "arduino_junior"
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--subject-name", required=True, help="Nazwa folderu w dataset/ z PDF-ami do OCR")
+    args = parser.parse_args()
+    subject_name = args.subject_name
+
+    input_dir = BASE_DIR / "dataset" / f"{subject_name}"
+    output_dir = BASE_DIR / "output" / f"{subject_name}"
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     pdf_files = list(input_dir.glob("*.pdf"))
     print(f"Znaleziono {len(pdf_files)} plików PDF.")

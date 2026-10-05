@@ -25,13 +25,6 @@ from image_extraction import get_image_descriptions
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 BASE_DIR = SCRIPT_DIR.parent
-SUBJECT_NAME = "arduino_junior"
-
-OCR_OUTPUT_DIR = BASE_DIR / "output" / SUBJECT_NAME
-PDF_INPUT_DIR = BASE_DIR / "dataset" / SUBJECT_NAME
-IMAGES_CACHE_DIR = BASE_DIR / "output" / "images" / SUBJECT_NAME
-CHUNKS_OUTPUT_BASE_PATH = BASE_DIR / "output" / "chunks" / f"{SUBJECT_NAME}.jsonl"
-CHUNKS_OUTPUT_PATH = get_output_path(CHUNKS_OUTPUT_BASE_PATH)
 
 
 def merge_image_descriptions(
@@ -69,7 +62,14 @@ def _print_debug_images(source_file: str, descriptions_by_page: dict, already_sh
             already_shown += 1
     return already_shown
 
-def main(debug_images: bool = False) -> None:
+def main(debug_images: bool, subject_name: str) -> None:
+
+    OCR_OUTPUT_DIR = BASE_DIR / "output" / subject_name
+    PDF_INPUT_DIR = BASE_DIR / "dataset" / subject_name
+    IMAGES_CACHE_DIR = BASE_DIR / "output" / "images" / subject_name
+    CHUNKS_OUTPUT_BASE_PATH = BASE_DIR / "output" / "chunks" / f"{subject_name}.jsonl"
+    CHUNKS_OUTPUT_PATH = get_output_path(CHUNKS_OUTPUT_BASE_PATH)
+
     json_files = sorted(OCR_OUTPUT_DIR.glob("*.json"))
     print(f"Znaleziono {len(json_files)} plików OCR.")
 
@@ -145,5 +145,9 @@ if __name__ == "__main__":
         action="store_true",
         help="Wypisz opisy pierwszych 10 przetworzonych obrazków (do weryfikacji jakości)",
     )
+    parser.add_argument(
+        "--subject-name",
+        required=True
+    )
     args = parser.parse_args()
-    main(debug_images=args.debug_images)
+    main(debug_images=args.debug_images, subject_name=args.subject_name)

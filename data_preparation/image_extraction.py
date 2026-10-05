@@ -12,18 +12,22 @@ import pymupdf as fitz
 import base64
 import json
 from pathlib import Path
-from openai import AzureOpenAI
+from openai import OpenAI
 import io
 from PIL import Image
 from utils import config
 import argparse
 import os
 import glob
+import hashlib
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import pytesseract
 
-client = AzureOpenAI(
-    azure_endpoint=config.OPENAI_ENDPOINT,
-    api_key=config.OPENAI_KEY,
-    api_version="2024-06-01",
+TEXT_HEAVY_WORD_THRESHOLD = 5
+
+client = OpenAI(
+    api_key=config.AI_CHAT_KEY,
+    base_url=f"{config.AI_CHAT_ENDPOINT}/openai/v1/"
 )
 deployment_name = config.AI_CHAT_NAME
 
@@ -37,34 +41,37 @@ def process_image_with_gpt(image_base64: str) -> dict:
     Twoim zadaniem jest sklasyfikować obraz i, jeśli to konieczne, wyciągnąć z niego informacje.
 
     ZASADY:
-    1. Jeśli obraz przedstawia przede wszystkim kota (lub koty), zignoruj go. Służy tylko jako przerywnik. Zwróć JSON z polem "action": "ignore" i "reason": "cat".
+    1. Jeśli obraz przedstawia przede wszystkim kota (lub koty), zignoruj go. Służy tylko jako dodatek dla dzieci. Zwróć JSON z polem "action": "ignore" i "reason": "cat".
     2. Jeśli obraz to przede wszystkim zdjęcie z dużą ilością tekstu (np. zdjęcie jakiegoś tekstu, kodu programistycznego, bloczków tekstowych), zignoruj go. Zwróć JSON z polem "action": "ignore" i "reason": "text_heavy".
     3. W każdym innym przypadku (np. schematy, wykresy, inne zdjęcia tematyczne), opisz szczegółowo co znajduje się na obrazku, aby przekazać jego wartość merytoryczną. Zwróć JSON z polem "action": "keep" i polem "description": "tutaj twój szczegółowy opis".
 
     Zwróć TYLKO czysty obiekt JSON (bez znaczników formatowania Markdown i bloków kodu), zgodnie z powyższymi wytycznymi.
     """
 
-    response = client.chat.completions.create(
-        model=deployment_name,
-        messages=[
+    response = client.responses.create(
+        extra_body={
+            "agent_reference": {
+                "name": "robo-gpt",
+                "type": "agent_reference",
+            }
+        },
+        input=[
             {
                 "role": "user",
                 "content": [
-                    {"type": "text", "text": prompt},
+                    {"type": "input_text", "text": prompt},
                     {
-                        "type": "image_url",
-                        "image_url": {
-                            "url": f"data:image/png;base64,{image_base64}"
-                        }
+                        "type": "input_image",
+                        "image_url": f"data:image/png;base64,{image_base64}"
                     }
                 ]
             }
         ],
-        max_tokens=500
+        max_output_tokens=500
     )
 
     try:
-        raw_response = response.choices[0].message.content.strip()
+        raw_response = response.output_text.strip()
         if raw_response.startswith('```json'):
             raw_response = raw_response[7:-3]
         elif raw_response.startswith('```'):
@@ -75,12 +82,16 @@ def process_image_with_gpt(image_base64: str) -> dict:
     except json.JSONDecodeError:
         return {"action": "error", "reason": "Nie można sparsować odpowiedzi z GPT."}
 
-
-def extract_and_process_images(pdf_path: str) -> list[dict]:
-    """Otwiera PDF, wyciąga zdjęcia i puszcza je przez GPT."""
+def extract_and_process_images(pdf_path: str, max_workers: int = 6) -> list[dict]:
+    """Otwiera PDF, wyciąga obrazy, odrzuca duplikaty (po hashu zawartości)
+    i puszcza unikalne obrazy RÓWNOLEGLE przez GPT — slajdy z powtarzającymi
+    się ikonkami (np. rozpiska zajęć) nie odpytują GPT po kilkadziesiąt razy
+    dla tego samego obrazka."""
 
     pdf_document = fitz.open(pdf_path)
-    extracted_data = []
+
+    # (numer_strony, numer_obrazu, bytes, hash)
+    candidates: list[tuple[int, int, bytes, str]] = []
 
     for page_index in range(len(pdf_document)):
         page = pdf_document.load_page(page_index)
@@ -98,27 +109,67 @@ def extract_and_process_images(pdf_path: str) -> list[dict]:
             except Exception:
                 pass
 
-            image_base64 = base64.b64encode(image_bytes).decode('utf-8')
-
-            print(f"Przetwarzam obraz {img_index + 1} na stronie {page_index + 1}...")
-
-            gpt_result = process_image_with_gpt(image_base64)
-
-            if gpt_result.get("action") == "keep":
-                extracted_data.append({
-                    "page": page_index + 1,
-                    "image_index": img_index + 1,
-                    "description": gpt_result.get("description")
-                })
-                print(f" -> Zachowano. Opis: {gpt_result.get('description')[:50]}...")
-            elif gpt_result.get("action") == "ignore":
-                print(f" -> Zignorowano. Powód: {gpt_result.get('reason')}")
-            else:
-                print(f" -> Błąd przetwarzania: {gpt_result}")
+            image_hash = hashlib.md5(image_bytes).hexdigest()
+            candidates.append((page_index + 1, img_index + 1, image_bytes, image_hash))
 
     pdf_document.close()
-    return extracted_data
 
+    unique_by_hash: dict[str, bytes] = {}
+    for _, _, image_bytes, image_hash in candidates:
+        unique_by_hash.setdefault(image_hash, image_bytes)
+
+    print(
+        f"Znaleziono {len(candidates)} obrazów ({len(unique_by_hash)} unikalnych) "
+        f"— przetwarzam równolegle ({max_workers} wątków)..."
+    )
+
+    results_by_hash: dict[str, dict] = {}
+    to_submit: dict[str, bytes] = {}
+
+    for image_hash, image_bytes in unique_by_hash.items():
+        to_submit[image_hash] = image_bytes
+
+    print(
+        f"Znaleziono {len(candidates)} obrazów ({len(unique_by_hash)} unikalnych, "
+        f"{len(unique_by_hash) - len(to_submit)} odfiltrowanych lokalnie jako text_heavy) "
+        f"— wysyłam do GPT {len(to_submit)} ({max_workers} wątków)..."
+    )
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_hash = {
+            executor.submit(
+                process_image_with_gpt, base64.b64encode(image_bytes).decode("utf-8")
+            ): image_hash
+            for image_hash, image_bytes in to_submit.items()
+        }
+        for future in as_completed(future_to_hash):
+            image_hash = future_to_hash[future]
+            results_by_hash[image_hash] = future.result()
+
+    extracted_data = []
+    seen_on_page: set[tuple[int, str]] = set()
+    for page_num, img_index, _, image_hash in candidates:
+        gpt_result = results_by_hash[image_hash]
+
+        if gpt_result.get("action") == "keep":
+            key = (page_num, image_hash)
+            if key in seen_on_page:
+                print(f"Strona {page_num}, obraz {img_index} -> pominięto (duplikat na tym slajdzie).")
+                continue
+            seen_on_page.add(key)
+
+            extracted_data.append({
+                "page": page_num,
+                "image_index": img_index,
+                "description": gpt_result.get("description")
+            })
+            print(f"Strona {page_num}, obraz {img_index} -> zachowano. Opis: {gpt_result.get('description')[:50]}...")
+        elif gpt_result.get("action") == "ignore":
+            print(f"Strona {page_num}, obraz {img_index} -> zignorowano. Powód: {gpt_result.get('reason')}")
+        else:
+            print(f"Strona {page_num}, obraz {img_index} -> błąd przetwarzania: {gpt_result}")
+
+    return extracted_data
 
 def get_image_descriptions(pdf_path, cache_dir) -> dict:
     """
