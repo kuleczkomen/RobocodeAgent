@@ -7,3 +7,7 @@ output/
 __pycache__
 docs/
 dataset_pptx/
+
+eval/*.md
+eval/eval_output.json
+logs/

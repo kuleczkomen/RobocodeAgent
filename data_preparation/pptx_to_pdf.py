@@ -4,23 +4,26 @@ import subprocess
 import sys
 
 
-SUBJECT_NAME = "arduino_junior"
-INPUT_FOLDER_PATH = Path("../ dataset_pptx")
-OUTPUT_FOLDER_PATH = Path(f"../dataset/{SUBJECT_NAME}")
-
-
 def find_pptx_files(input_folder: Path) -> list[Path]:
-    """Find PPTX files in the main folder and one level of subfolders."""
-    files = list(input_folder.glob("*.pptx"))
+    """Find PPTX files anywhere under input_folder, grouped by parent folder;
+    if a parent folder has multiple .pptx files, keep only the one ending in PL.pptx."""
+    by_parent: dict[Path, list[Path]] = {}
+    for f in input_folder.rglob("*.pptx"):
+        by_parent.setdefault(f.parent, []).append(f)
 
-    for subfolder in input_folder.iterdir():
-        if subfolder.is_dir():
-            files.extend(subfolder.glob("*.pptx"))
+    files = []
+    for parent, sub_files in by_parent.items():
+        if len(sub_files) > 1:
+            pl_files = [f for f in sub_files if f.name.endswith("PL.pptx")]
+            sub_files = pl_files if pl_files else sub_files
+        files.extend(sub_files)
 
     return files
 
 
-def convert_pptx_to_pdf(input_folder: Path, output_folder: Path) -> None:
+def convert_pptx_to_pdf(subject_name: str, input_folder: Path) -> None:
+    output_folder = Path(f"../dataset/{subject_name}")
+
     if not input_folder.exists():
         print(f"Input folder does not exist: {input_folder}")
         sys.exit(1)
@@ -66,11 +69,12 @@ def main():
     parser = argparse.ArgumentParser(
         description="Convert all PPTX files from input folder to PDF."
     )
+    parser.add_argument("--subject-name")
+    parser.add_argument("--input", help="Input folder with PDF presentations")
     args = parser.parse_args()
 
     convert_pptx_to_pdf(
-        INPUT_FOLDER_PATH,
-        OUTPUT_FOLDER_PATH,
+        args.subject_name, Path(args.input)
     )
 
 

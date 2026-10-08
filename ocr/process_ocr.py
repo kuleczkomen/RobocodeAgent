@@ -1,25 +1,30 @@
-import os
 import json
 from pathlib import Path
-from azure.core.credentials import AzureKeyCredential
+
+import argparse
 from azure.ai.documentintelligence import DocumentIntelligenceClient
+from azure.core.credentials import AzureKeyCredential
+
 from utils import config
 
-ENDPOINT = config.DOCUMENT_INTELLIGENCE_ENDPOINT
-KEY = config.DOCUMENT_INTELLIGENCE_KEY
+client = DocumentIntelligenceClient(
+    endpoint=config.DOCUMENT_INTELLIGENCE_ENDPOINT,
+    credential=AzureKeyCredential(config.DOCUMENT_INTELLIGENCE_KEY)
+)
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+BASE_DIR = SCRIPT_DIR.parent
+
 
 def main() -> None:
-    # initialise SDK Azure client
-    client = DocumentIntelligenceClient(
-        endpoint=ENDPOINT,
-        credential=AzureKeyCredential(KEY)
-    )
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--subject-name", required=True, help="Nazwa folderu w dataset/ z PDF-ami do OCR")
+    args = parser.parse_args()
+    subject_name = args.subject_name
 
-    SCRIPT_DIR = Path(__file__).resolve().parent
-    BASE_DIR = SCRIPT_DIR.parent
-
-    input_dir = BASE_DIR / "dataset" / "arduino_junior"
-    output_dir = BASE_DIR / "output" / "arduino_junior"
+    input_dir = BASE_DIR / "dataset" / f"{subject_name}"
+    output_dir = BASE_DIR / "output" / f"{subject_name}"
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     pdf_files = list(input_dir.glob("*.pdf"))
     print(f"Znaleziono {len(pdf_files)} plików PDF.")
